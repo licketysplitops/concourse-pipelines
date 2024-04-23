@@ -1,5 +1,8 @@
 platform: linux
-image: concourse/oci-build-task
+image_resource:
+  type: registry-image
+  source:
+    repository: concourse/oci-build-task
 inputs:
   - name: src
 outputs:

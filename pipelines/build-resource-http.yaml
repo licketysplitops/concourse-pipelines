@@ -3,7 +3,7 @@ resources:
     type: git
     icon: github
     source:
-      uri: https://github.com/licketysplitops/argocd-deployments
+      uri: https://github.com/licketysplitops/concourse-pipelines
       branch: dev
   - name: src
     type: git
