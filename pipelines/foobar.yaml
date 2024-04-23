@@ -1,0 +1,37 @@
+resource_types:
+  - name: kubernetes-version
+    type: docker-image
+    icon: docker
+    source:
+      repository: nullk/concourse-http-request-resource
+      tag: latest
+  - name: kubectl-resource
+    type: git
+    icon: git
+    source:
+       uri: https://github.com/licketysplitops/concourse-kubectl-resource
+       branch: master
+
+resources:
+  - name: ci
+    type: git
+    icon: git
+    source:
+      uri: git@github.com:licketysplitops/concourse-pipelines.git
+      branch: dev
+  - name: k8s-release
+    type: kubernetes-version
+    source:
+      uri: "https://storage.googleapis.com/kubernetes-release/release/stable.txt"
+  - name: deployments
+    type: git
+    icon: github
+    source:
+      uri: https://github.com/licketysplitops/argocd-deployments
+      branch: dev
+
+jobs:
+  - name: foobar
+    plan:
+      - get: k8s-release
+        trigger: true

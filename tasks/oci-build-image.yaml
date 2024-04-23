@@ -1,0 +1,10 @@
+platform: linux
+image: concourse/oci-build-task
+inputs:
+  - name: src
+outputs:
+  - name: image
+params:
+  CONTEXT: src
+run:
+  path: build

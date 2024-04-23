@@ -1,0 +1,33 @@
+resources:
+  - name: ci
+    type: git
+    icon: github
+    source:
+      uri: https://github.com/licketysplitops/argocd-deployments
+      branch: dev
+  - name: src
+    type: git
+    icon: github
+    source:
+      uri: https://github.com/licketysplitops/concourse-http-request-resource
+      branch: main
+  - name: image
+    type: registry-image
+    icon: docker
+    source:
+      repository: ((repo))
+      username: ((username))
+      password: ((password))
+      tag: latest
+jobs:
+  - name: build-and-push
+    plan:
+      - get: ci
+      - get: src
+        trigger: true
+      - task: build
+        privileged: true
+        file: ci/tasks/oci-build-image.yaml
+      - put: image
+        params:
+          image: image/image.tar
